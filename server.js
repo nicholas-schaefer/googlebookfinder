@@ -15,6 +15,17 @@ if (process.env.NODE_ENV === "production") {
 
 // Define API routes here
 
+app.get("/scrape", function (req, res) {
+  // First, we grab the body of the html with axios
+  axios.get("https://www.googleapis.com/books/v1/volumes?q=inauthor:dav+pilkey&orderBy=newest&key=AIzaSyBvrAqrUn3DQqWapuse08m421Df1ZU5ZcU").then(function (response) {
+    // Then, we load that into cheerio and save it to $ for a shorthand selector
+    console.log(response.data);
+  });
+  // Send a message to the client
+  res.send("Scrape Complete");
+}); 
+
+
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
