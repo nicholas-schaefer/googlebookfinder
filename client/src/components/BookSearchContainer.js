@@ -48,22 +48,7 @@ class BookSearchContainer extends Component {
               heading={"Search for a Book to Begin"}
             >
               {this.state.result ? (
-                <BookDetail
-                title={this.state.result.items[0].volumeInfo.title}
-                authors={this.state.result.items[0].volumeInfo.authors[0]}
-                publisher={this.state.result.items[0].volumeInfo.publisher}
-                publishedDate={this.state.result.items[0].volumeInfo.publishedDate}
-                moreInfoLink={this.state.result.items[0].volumeInfo.canonicalVolumeLink}
-                imageLink={this.state.result.items[0].volumeInfo.imageLinks.smallThumbnail}
-                // released={JSON.stringify(this.state.result.items[0].id)}
-                // released={this.state.result.items[0].volumeInfo.title}
-                // director={this.state.result}
-                  // title={this.state.result.Title}
-                  // src={this.state.result.Poster}
-                  // director={this.state.result.Director}
-                  // genre={this.state.result.Genre}
-                  // released={this.state.result.Released}
-                />
+                <BookDetail results={this.state.result.items} />
               ) : (
                 <h3>No Results to Display</h3>
               )}
