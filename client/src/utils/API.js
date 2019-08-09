@@ -8,5 +8,9 @@ const APIKEY = "&key=AIzaSyBvrAqrUn3DQqWapuse08m421Df1ZU5ZcU";
 export default {
   search: function(query) {
     return axios.get(`${BASEURL}${AUTHORSEARCH}${query}${ORDERING}${MAXRESULTS}${APIKEY}`);
-  }
+  },
+  // Gets all books
+  getBooks: function() {
+  return axios.get("/api/books");
+},
 };

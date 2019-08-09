@@ -16,7 +16,14 @@ class BookSearchContainer extends Component {
   // When this component mounts, search for the movie "The Matrix"
   componentDidMount() {
     this.searchBooks("dav+pilkey");
+    this.loadBooks();
   }
+
+  loadBooks = () => {
+    API.getBooks()
+      .then(res => console.log({res}))
+      .catch(err => console.log(err));
+  };
 
   searchBooks = query => {
     API.search(query)
