@@ -15,7 +15,7 @@ class BookSearchContainer extends Component {
 
   // When this component mounts, search for the movie "The Matrix"
   componentDidMount() {
-    this.searchBooks("inauthor:dav+pilkey&orderBy=newest");
+    this.searchBooks("dav+pilkey");
   }
 
   searchBooks = query => {
@@ -35,6 +35,7 @@ class BookSearchContainer extends Component {
   // When the form is submitted, search the Google Books API for the value of `this.state.search`
   handleFormSubmit = event => {
     event.preventDefault();
+    alert(this.state.search);
     this.searchBooks(this.state.search);
   };
 
