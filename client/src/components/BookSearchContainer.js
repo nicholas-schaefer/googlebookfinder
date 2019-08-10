@@ -10,7 +10,8 @@ import API from "../utils/API";
 class BookSearchContainer extends Component {
   state = {
     result: "",
-    search: ""
+    search: "",
+    title: "",
   };
 
   // When this component mounts, search for the movie "The Matrix"
@@ -19,8 +20,11 @@ class BookSearchContainer extends Component {
     this.loadBooks();
   };
 
-  handleAddSubmit() {
-    console.log("TestyTestyTesticles!")
+  handleAddSubmit(volumeInfo) {
+    console.log(volumeInfo)
+    // console.log(
+    //   `ISBN = ${isbn} Title = ${title}`
+    //   )
   };
 
   loadBooks = () => {
@@ -62,8 +66,15 @@ class BookSearchContainer extends Component {
               {this.state.result ? (
                 <BookDetail 
                 results={this.state.result.items} 
-                onClickAction={() => this.handleAddSubmit()}
-                // handleAddSubmit={this.handleAddSubmit}
+                onClickAction={this.handleAddSubmit}
+                // {function(e){
+                //   // this.handleAddSubmit(`${e.target.getAttribute("newtitle")}` 
+                //   // this.handleAddSubmit(`${e.target.getAttributeNames("bookisbn")}` 
+                //   this.handleAddSubmit(e.target.getAttribute("bookisbn"),e.target.getAttribute("booktitle")
+                //   // this.handleAddSubmit(`${e.target.getAttribute("booktitle")}`
+                //   )}}
+                // onClickAction={e => this.handleAddSubmit(`${e.target.parentNode.getAttribute("title")}`)}
+                // onClickAction={() => this.handleAddSubmit(this.state.result.items[0].volumeInfo.title)}
                 />
               ) : (
                 <h3>No Results to Display</h3>
