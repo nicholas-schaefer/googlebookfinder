@@ -12,6 +12,9 @@ function BookDetail(props) {
           <h3>Published Date: {result.volumeInfo.publishedDate}</h3>
           <h3>ISBN 13: {result.volumeInfo.industryIdentifiers[0].identifier}</h3>
           <h3>More Info: {result.volumeInfo.canonicalVolumeLink}</h3>
+          <span onClick={props.onClickAction} className="btn btn-secondary" id = {result.volumeInfo.industryIdentifiers[0].identifier} role="button" tabIndex="0">
+          SAVE ME
+          </span>
           {/* <h3>Image Link: {JSON.stringify(result.volumeInfo.imageLinks.smallThumbnail)}</h3> */}
           <hr />
         </div>

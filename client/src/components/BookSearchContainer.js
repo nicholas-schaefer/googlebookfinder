@@ -17,7 +17,11 @@ class BookSearchContainer extends Component {
   componentDidMount() {
     this.searchBooks("dav+pilkey");
     this.loadBooks();
-  }
+  };
+
+  handleAddSubmit() {
+    console.log("TestyTestyTesticles!")
+  };
 
   loadBooks = () => {
     API.getBooks()
@@ -56,7 +60,11 @@ class BookSearchContainer extends Component {
               heading={"Search for a Book to Begin"}
             >
               {this.state.result ? (
-                <BookDetail results={this.state.result.items} />
+                <BookDetail 
+                results={this.state.result.items} 
+                onClickAction={() => this.handleAddSubmit()}
+                // handleAddSubmit={this.handleAddSubmit}
+                />
               ) : (
                 <h3>No Results to Display</h3>
               )}
