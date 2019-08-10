@@ -12,25 +12,20 @@ class BookSearchContainer extends Component {
   state = {
     result: "",
     search: "",
-
-    // title: "",
-    // author: "",
-    // publisher: "",
-    // publishedDate: "",
-    // isbnLong: "",
-    // googleBookListing: "",
+    books: []
   };
 
   // When this component mounts, console log what's currently in the MongoDatabase 
   // and populate example search with author Dav Pilkey 
   componentDidMount() {
-    this.viewMongoDbData();
+    this.viewMongoDbData()
     this.searchBooks("Dav+Pilkey");
   };
 
   viewMongoDbData = () => {
     API.getBooks()
-      .then(res => console.log({res}))
+      .then(res => this.setState({ books: res.data }))
+      // .then(res => console.log({res}))
       .catch(err => console.log(err));
   };
 
@@ -105,16 +100,15 @@ class BookSearchContainer extends Component {
             </Card>
             <Card heading="Results">
             <List>
-                {/* {this.state.books.map(book => ( */}
+                {this.state.books.map(book => (
                   <ListItem>
                     <a href={"/books/URL WILL GO HERE"}>
                       <strong>
-                        [TITLE WILL GO HERE] by [AUTHOR WILL GO HERE]
+                        [TITLE WILL GO HERE] {book.title} by [AUTHOR WILL GO HERE]
                       </strong>
                     </a>
-                    {/* <DeleteBtn /> */}
                   </ListItem>
-                {/* ))} */}
+                ))}
               </List>
             </Card>
           </Col>
