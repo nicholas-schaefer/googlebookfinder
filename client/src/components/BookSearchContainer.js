@@ -6,28 +6,29 @@ import Card from "./Card";
 import SearchForm from "./SearchForm";
 import BookDetail from "./BookDetail";
 import API from "../utils/API";
+import {List, ListItem} from "./List";
 
 class BookSearchContainer extends Component {
   state = {
     result: "",
     search: "",
-    title: "",
+
+    // title: "",
+    // author: "",
+    // publisher: "",
+    // publishedDate: "",
+    // isbnLong: "",
+    // googleBookListing: "",
   };
 
-  // When this component mounts, search for the movie "The Matrix"
+  // When this component mounts, console log what's currently in the MongoDatabase 
+  // and populate example search with author Dav Pilkey 
   componentDidMount() {
-    this.searchBooks("dav+pilkey");
-    this.loadBooks();
+    this.viewMongoDbData();
+    this.searchBooks("Dav+Pilkey");
   };
 
-  handleAddSubmit(volumeInfo) {
-    console.log(volumeInfo)
-    // console.log(
-    //   `ISBN = ${isbn} Title = ${title}`
-    //   )
-  };
-
-  loadBooks = () => {
+  viewMongoDbData = () => {
     API.getBooks()
       .then(res => console.log({res}))
       .catch(err => console.log(err));
@@ -37,6 +38,28 @@ class BookSearchContainer extends Component {
     API.search(query)
       .then(res => this.setState({ result: res.data }))
       .catch(err => console.log(err));
+  };
+
+  handleAddSubmit(volumeInfo) {
+    console.log(
+      `
+      ${volumeInfo.title}
+      ${volumeInfo.authors[0]}
+      ${volumeInfo.publisher}
+      ${volumeInfo.publishedDate}
+      ${volumeInfo.industryIdentifiers[0].identifier}
+      ${volumeInfo.canonicalVolumeLink}
+      `
+    )
+    API.saveBook({
+      title: volumeInfo.title,
+      author: volumeInfo.authors[0],
+      publisher: volumeInfo.publisher,
+      publishedDate: volumeInfo.publishedDate,
+      isbnLong: volumeInfo.industryIdentifiers[0].identifier,
+      googleBookListing: volumeInfo.canonicalVolumeLink
+    })
+    console.log(volumeInfo)
   };
 
   handleInputChange = event => {
@@ -55,7 +78,6 @@ class BookSearchContainer extends Component {
   };
 
   render() {
-    console.log(this.state.result.items);
     return (
       <Container>
         <Row>
@@ -67,14 +89,6 @@ class BookSearchContainer extends Component {
                 <BookDetail 
                 results={this.state.result.items} 
                 onClickAction={this.handleAddSubmit}
-                // {function(e){
-                //   // this.handleAddSubmit(`${e.target.getAttribute("newtitle")}` 
-                //   // this.handleAddSubmit(`${e.target.getAttributeNames("bookisbn")}` 
-                //   this.handleAddSubmit(e.target.getAttribute("bookisbn"),e.target.getAttribute("booktitle")
-                //   // this.handleAddSubmit(`${e.target.getAttribute("booktitle")}`
-                //   )}}
-                // onClickAction={e => this.handleAddSubmit(`${e.target.parentNode.getAttribute("title")}`)}
-                // onClickAction={() => this.handleAddSubmit(this.state.result.items[0].volumeInfo.title)}
                 />
               ) : (
                 <h3>No Results to Display</h3>
@@ -88,6 +102,20 @@ class BookSearchContainer extends Component {
                 handleInputChange={this.handleInputChange}
                 handleFormSubmit={this.handleFormSubmit}
               />
+            </Card>
+            <Card heading="Results">
+            <List>
+                {/* {this.state.books.map(book => ( */}
+                  <ListItem>
+                    <a href={"/books/URL WILL GO HERE"}>
+                      <strong>
+                        [TITLE WILL GO HERE] by [AUTHOR WILL GO HERE]
+                      </strong>
+                    </a>
+                    {/* <DeleteBtn /> */}
+                  </ListItem>
+                {/* ))} */}
+              </List>
             </Card>
           </Col>
         </Row>

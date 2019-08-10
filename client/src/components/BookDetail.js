@@ -6,7 +6,7 @@ function BookDetail(props) {
       {props.results.map(result => (
         <div key ={result.volumeInfo.industryIdentifiers[0].identifier}>
           {/* <img alt={result.volumeInfo.title} className="img-fluid" src={result.volumeInfo.imageLink} style={{ margin: "0 auto" }} /> */}
-          <h3>Title:<span newtitle={result.volumeInfo.title}>{result.volumeInfo.title}</span></h3>
+          <h3>Title: {result.volumeInfo.title}</h3>
           <h3>Author: {result.volumeInfo.authors}</h3>
           <h3>Publisher: {result.volumeInfo.publisher}</h3>
           <h3>Published Date: {result.volumeInfo.publishedDate}</h3>
@@ -15,12 +15,6 @@ function BookDetail(props) {
           <span 
             onClick={()=> {props.onClickAction(result.volumeInfo)}}
             className="btn btn-secondary"
-            booktitle = {result.volumeInfo.title}
-            bookauthor = {result.volumeInfo.authors}
-            bookpublisher = {result.volumeInfo.publisher}
-            bookpublisheddate = {result.volumeInfo.publishedDate}
-            bookisbn = {result.volumeInfo.industryIdentifiers[0].identifier}
-            bookpagelink = {result.volumeInfo.canonicalVolumeLink}
             role="button"
             tabIndex="0">
             SAVE ME
