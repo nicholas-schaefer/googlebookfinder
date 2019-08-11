@@ -9,7 +9,7 @@ import API from "../utils/API";
 import {List, ListItem} from "./List";
 import DeleteBtn from "./DeleteBtn";
 
-class BookSearchContainer extends Component {
+class BookSearchResults extends Component {
   state = {
     result: "",
     search: "",
@@ -75,7 +75,7 @@ class BookSearchContainer extends Component {
     return (
       <Container>
         <Row>
-          <Col size="md-8">
+          {/* <Col size="md-8">
             <Card
               heading={"Search for a Book to Begin"}
             >
@@ -88,15 +88,15 @@ class BookSearchContainer extends Component {
                 <h3>No Results to Display</h3>
               )}
             </Card>
-          </Col>
-          <Col size="md-4">
-            <Card heading="Search">
+          </Col> */}
+          <Col size="md-8">
+            {/* <Card heading="Search">
               <SearchForm
                 value={this.state.search}
                 handleInputChange={this.handleInputChange}
                 handleFormSubmit={this.handleFormSubmit}
               />
-            </Card>
+            </Card> */}
             <Card heading="Results">
             <List>
                 {this.state.books.map(book => (
@@ -119,4 +119,4 @@ class BookSearchContainer extends Component {
   }
 }
 
-export default BookSearchContainer;
+export default BookSearchResults;
