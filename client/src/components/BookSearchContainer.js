@@ -67,7 +67,6 @@ class BookSearchContainer extends Component {
   // When the form is submitted, search the Google Books API for the value of `this.state.search`
   handleFormSubmit = event => {
     event.preventDefault();
-    alert(this.state.search);
     this.searchBooks(this.state.search);
   };
 
@@ -77,7 +76,7 @@ class BookSearchContainer extends Component {
         <Row>
           <Col size="md-8">
             <Card
-              heading={"Search for a Book to Begin"}
+              heading={"Search for an Author to Begin"}
             >
               {this.state.result ? (
                 <BookDetail 

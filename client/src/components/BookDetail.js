@@ -5,13 +5,12 @@ function BookDetail(props) {
     <div className="text-center">
       {props.results.map(result => (
         <div key ={result.volumeInfo.industryIdentifiers[0].identifier}>
-          {/* <img alt={result.volumeInfo.title} className="img-fluid" src={result.volumeInfo.imageLink} style={{ margin: "0 auto" }} /> */}
           <h3>Title: {result.volumeInfo.title}</h3>
           <h3>Author: {result.volumeInfo.authors}</h3>
           <h3>Publisher: {result.volumeInfo.publisher}</h3>
           <h3>Published Date: {result.volumeInfo.publishedDate}</h3>
           <h3>ISBN 13: {result.volumeInfo.industryIdentifiers[0].identifier}</h3>
-          <h3>More Info: {result.volumeInfo.canonicalVolumeLink}</h3>
+          <h3><a href={result.volumeInfo.canonicalVolumeLink} target ="blank">More Info</a></h3>
           <span 
             onClick={()=> {props.onClickAction(result.volumeInfo)}}
             className="btn btn-secondary"
@@ -19,7 +18,6 @@ function BookDetail(props) {
             tabIndex="0">
             SAVE ME
           </span>
-          {/* <h3>Image Link: {JSON.stringify(result.volumeInfo.imageLinks.smallThumbnail)}</h3> */}
           <hr />
         </div>
       ))}
