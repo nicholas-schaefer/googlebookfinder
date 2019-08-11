@@ -7,6 +7,7 @@ import SearchForm from "./SearchForm";
 import BookDetail from "./BookDetail";
 import API from "../utils/API";
 import {List, ListItem} from "./List";
+import DeleteBtn from "./DeleteBtn";
 
 class BookSearchContainer extends Component {
   state = {
@@ -35,27 +36,26 @@ class BookSearchContainer extends Component {
       .catch(err => console.log(err));
   };
 
-  handleAddSubmit(volumeInfo) {
-    console.log(
-      `
-      ${volumeInfo.title}
-      ${volumeInfo.authors[0]}
-      ${volumeInfo.publisher}
-      ${volumeInfo.publishedDate}
-      ${volumeInfo.industryIdentifiers[0].identifier}
-      ${volumeInfo.canonicalVolumeLink}
-      `
-    )
-    API.saveBook({
-      title: volumeInfo.title,
-      author: volumeInfo.authors[0],
-      publisher: volumeInfo.publisher,
-      publishedDate: volumeInfo.publishedDate,
-      isbnLong: volumeInfo.industryIdentifiers[0].identifier,
-      googleBookListing: volumeInfo.canonicalVolumeLink
+  handleAddSubmit = volumeInfo => {
+      API.saveBook({
+        title: volumeInfo.title,
+        author: volumeInfo.authors[0],
+        publisher: volumeInfo.publisher,
+        publishedDate: volumeInfo.publishedDate,
+        isbnLong: volumeInfo.industryIdentifiers[0].identifier,
+        googleBookListing: volumeInfo.canonicalVolumeLink
     })
-    console.log(volumeInfo)
+    .then(res => this.viewMongoDbData())
+    .catch(err => console.log(err));
+    // console.log(volumeInfo)
   };
+
+    // Deletes a book from the database with a given id, then reloads books from the db
+    deleteBook = id => {
+      API.deleteBook(id)
+        .then(res => this.viewMongoDbData())
+        .catch(err => console.log(err));
+    };
 
   handleInputChange = event => {
     const value = event.target.value;
@@ -101,12 +101,14 @@ class BookSearchContainer extends Component {
             <Card heading="Results">
             <List>
                 {this.state.books.map(book => (
-                  <ListItem>
-                    <a href={"/books/URL WILL GO HERE"}>
+                  <ListItem key={book._id}>
+                    <a href={book.googleBookListing} target="blank">
                       <strong>
-                        [TITLE WILL GO HERE] {book.title} by [AUTHOR WILL GO HERE]
+                        {book.title} by {book.author}
                       </strong>
                     </a>
+                    <p>Publish Date: {book.publishedDate}</p>
+                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
                   </ListItem>
                 ))}
               </List>

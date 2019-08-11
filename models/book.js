@@ -6,7 +6,7 @@ const bookSchema = new Schema({
   author: { type: String, required: true },
   publisher: { type: String, required: true },
   publishedDate: { type: String, required: true },
-  isbnLong: { type: String, required: true },
+  isbnLong: { type: String, required: true, unique: true },
   googleBookListing: { type: String, required: true },
   // date: { type: Date, default: Date.now }
 });
