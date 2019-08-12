@@ -48,7 +48,7 @@ class BookSearchContainer extends Component {
         author: volumeInfo.authors[0],
         publisher: volumeInfo.publisher,
         publishedDate: volumeInfo.publishedDate,
-        isbnLong: volumeInfo.industryIdentifiers[0].identifier,
+        isbnLong: (volumeInfo.industryIdentifiers[1] == null) ? 'undefined' : volumeInfo.industryIdentifiers[1].identifier,
         googleBookListing: volumeInfo.canonicalVolumeLink
     })
     .then(res => this.viewMongoDbData())
@@ -76,7 +76,7 @@ class BookSearchContainer extends Component {
         <Row>
           <Col size="md-8">
             <Card
-              heading={"Search for an Author to Begin"}
+              heading={"PubDate Planner"}
             >
               {this.state.result ? (
                 <BookDetail 
